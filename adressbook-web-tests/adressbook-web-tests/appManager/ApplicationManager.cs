@@ -9,7 +9,7 @@ using OpenQA.Selenium.Support.UI;
 
 namespace WebAddressbookTests
 {
-    class ApplicationManager
+    public class ApplicationManager
     {
 
         protected IWebDriver driver;
@@ -22,6 +22,12 @@ namespace WebAddressbookTests
 
         public ApplicationManager()
         {
+            FirefoxOptions options = new FirefoxOptions();
+            options.BrowserExecutableLocation = @"c:\Program Files\Mozilla Firefox\firefox.exe";
+            options.UseLegacyImplementation = true;
+            driver = new FirefoxDriver(options);
+            baseURL = "http://localhost/";
+
             loginHelper = new LoginHelper(driver);
             navigator = new NavigationHelper(driver, baseURL);
             groupHelper = new GroupHelper(driver);

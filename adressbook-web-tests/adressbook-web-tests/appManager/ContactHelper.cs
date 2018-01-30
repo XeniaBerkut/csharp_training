@@ -17,12 +17,13 @@ namespace WebAddressbookTests
         {
         }
 
-        public void InitContactCreation()
+        public ContactHelper InitContactCreation()
         {
             driver.FindElement(By.LinkText("add new")).Click();
+            return this;
         }
 
-        public void FillContactForm(ContactData contact)
+        public ContactHelper FillContactForm(ContactData contact)
         {
             driver.FindElement(By.Name("firstname")).Clear();
             driver.FindElement(By.Name("firstname")).SendKeys(contact.Firstname);
@@ -58,11 +59,13 @@ namespace WebAddressbookTests
             //new SelectElement(driver.FindElement(By.Name("bmonth"))).SelectByText("January");
             //driver.FindElement(By.Name("byear")).Clear();
             //driver.FindElement(By.Name("byear")).SendKeys("1233");
+            return this;
         }
 
-        public void SubmitContactCreation()
+        public ContactHelper SubmitContactCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
+            return this;
         }
     }
 }
