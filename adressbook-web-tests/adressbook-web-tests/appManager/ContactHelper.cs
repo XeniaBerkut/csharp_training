@@ -12,14 +12,22 @@ namespace WebAddressbookTests
     public class ContactHelper: HelperBase
     {
        
-        public ContactHelper(IWebDriver driver) 
-            : base(driver)
+        public ContactHelper(ApplicationManager manager) 
+            : base(manager)
         {
         }
 
         public ContactHelper InitContactCreation()
         {
             driver.FindElement(By.LinkText("add new")).Click();
+            return this;
+        }
+
+        public ContactHelper Create(ContactData contact)
+        {
+            InitContactCreation();
+            FillContactForm(contact);
+            SubmitContactCreation();
             return this;
         }
 
@@ -31,34 +39,6 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("middlename")).SendKeys(contact.Middlename);
             driver.FindElement(By.Name("lastname")).Clear();
             driver.FindElement(By.Name("lastname")).SendKeys(contact.Lastname);
-            //driver.FindElement(By.Name("nickname")).Clear();
-            //driver.FindElement(By.Name("nickname")).SendKeys("2");
-            //driver.FindElement(By.Name("title")).Clear();
-            //driver.FindElement(By.Name("title")).SendKeys("3");
-            //driver.FindElement(By.Name("company")).Clear();
-            //driver.FindElement(By.Name("company")).SendKeys("4");
-            //driver.FindElement(By.Name("address")).Clear();
-            //driver.FindElement(By.Name("address")).SendKeys("вафывафывафываф");
-            //driver.FindElement(By.Name("home")).Clear();
-            //driver.FindElement(By.Name("home")).SendKeys("дом");
-            //driver.FindElement(By.Name("mobile")).Clear();
-            //driver.FindElement(By.Name("mobile")).SendKeys("мобилка");
-            //driver.FindElement(By.Name("work")).Clear();
-            //driver.FindElement(By.Name("work")).SendKeys("работа");
-            //driver.FindElement(By.Name("fax")).Clear();
-            //driver.FindElement(By.Name("fax")).SendKeys("факс");
-            //driver.FindElement(By.Name("email")).Clear();
-            //driver.FindElement(By.Name("email")).SendKeys("мыло");
-            //driver.FindElement(By.Name("email2")).Clear();
-            //driver.FindElement(By.Name("email2")).SendKeys("мыло");
-            //driver.FindElement(By.Name("email3")).Clear();
-            //driver.FindElement(By.Name("email3")).SendKeys("мыло");
-            //driver.FindElement(By.Name("homepage")).Clear();
-            //driver.FindElement(By.Name("homepage")).SendKeys("дом");
-            //new SelectElement(driver.FindElement(By.Name("bday"))).SelectByText("1");
-            //new SelectElement(driver.FindElement(By.Name("bmonth"))).SelectByText("January");
-            //driver.FindElement(By.Name("byear")).Clear();
-            //driver.FindElement(By.Name("byear")).SendKeys("1233");
             return this;
         }
 

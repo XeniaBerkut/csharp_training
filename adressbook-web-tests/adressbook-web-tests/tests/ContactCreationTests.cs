@@ -15,15 +15,24 @@ namespace WebAddressbookTests
         
 
         [Test]
-        public void ContactCreationTest()
+        public void ContactCreationTest1()
         {
                     
             ContactData contact = new ContactData("Hello", "Iam", "Xenia");
-            app.Contacts
-                .InitContactCreation()
-                .FillContactForm(contact)
-                .SubmitContactCreation();
+
+            app.Contacts.Create(contact);
+
         }
 
-     }
+        [Test]
+        public void ContactCreationTest2()
+        {
+
+            ContactData contact = new ContactData("Можно", "Ввести", "Кириллицу");
+
+            app.Contacts.Create(contact);
+
+        }
+
+    }
 }
