@@ -17,17 +17,55 @@ namespace WebAddressbookTests
         {
         }
 
-        public ContactHelper InitContactCreation()
+        public ContactHelper Remove(int v)
         {
-            driver.FindElement(By.LinkText("add new")).Click();
+            SelectContact(1);
+            RemoveContact();
+            CloseMessage();
             return this;
         }
+
+        public ContactHelper CloseMessage()
+        {
+            driver.SwitchTo().Alert().Accept();
+            //Assert.IsTrue(Regex.IsMatch(CloseAlertAndGetItsText(), "^Delete 1 addresses[\\s\\S]$"));
+            return this;
+        }
+
+        public ContactHelper RemoveContact()
+        {
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            return this;
+        }
+
+        public ContactHelper SelectContact(int index)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            //driver.FindElement(By.Id(" + index + ")).Click();
+            return this;
+        }
+
+        public ContactHelper Modify(int v, ContactData contact)
+        {
+            SelectContactForEdit(v);
+            FillContactForm(contact);
+            SubmitModify();
+            return this;
+        }
+
+
 
         public ContactHelper Create(ContactData contact)
         {
             InitContactCreation();
             FillContactForm(contact);
             SubmitContactCreation();
+            return this;
+        }
+
+        public ContactHelper InitContactCreation()
+        {
+            driver.FindElement(By.LinkText("add new")).Click();
             return this;
         }
 
@@ -45,6 +83,18 @@ namespace WebAddressbookTests
         public ContactHelper SubmitContactCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
+            return this;
+        }
+
+        public ContactHelper SubmitModify()
+        {
+            driver.FindElement(By.XPath("(//input[@name='update'])[2]")).Click();
+            return this;
+        }
+
+        public ContactHelper SelectContactForEdit(int index)
+        {
+            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + index + "]")).Click();
             return this;
         }
     }
