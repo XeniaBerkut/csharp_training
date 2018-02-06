@@ -19,6 +19,7 @@ namespace WebAddressbookTests
 
         public ContactHelper Remove(int v)
         {
+            manager.Navigator.GoToHomePage();
             SelectContact(1);
             RemoveContact();
             CloseMessage();
