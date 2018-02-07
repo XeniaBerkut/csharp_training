@@ -22,7 +22,11 @@ namespace WebAddressbookTests
             app.Contacts.Remove(2);
         }
 
-
+        [Test]
+        public void ContactRemovalTest3()
+        {
+            app.Contacts.Remove(3);
+        }
 
     }
 }

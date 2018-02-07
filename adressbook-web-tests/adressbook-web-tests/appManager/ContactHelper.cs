@@ -20,7 +20,7 @@ namespace WebAddressbookTests
         public ContactHelper Remove(int v)
         {
             manager.Navigator.GoToHomePage();
-            SelectContact(1);
+            SelectContactForRemove(v);
             RemoveContact();
             CloseMessage();
             return this;
@@ -41,9 +41,26 @@ namespace WebAddressbookTests
 
         public ContactHelper SelectContact(int index)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();            
             //driver.FindElement(By.Id(" + index + ")).Click();
             return this;
+        }
+
+        public void SelectContactForRemove(int index)
+        {
+            manager.Navigator.GoToHomePage();
+            if (IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + index + "]")))
+            {
+                driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            }
+            else
+            {
+                ContactData contact = new ContactData("Тут", "Был", "SelectContact");
+                Create(contact);
+                SelectContactForRemove(index);
+            }
+            
+            //driver.FindElement(By.Id(" + index + ")).Click();
         }
 
         public ContactHelper Modify(int v, ContactData contact)
