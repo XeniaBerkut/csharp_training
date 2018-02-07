@@ -20,7 +20,7 @@ namespace WebAddressbookTests
         {
             manager.Navigator.GoToGroupsPage();
 
-            SelectGroup(v);
+            SelectGroupWithCreation(v);
             RemoveGroup();
             ReturnToGroupsPage();
 
@@ -29,9 +29,9 @@ namespace WebAddressbookTests
 
         public GroupHelper Modify(int v, GroupData newData)
         {
-            manager.Navigator.GoToGroupsPage();
+            //manager.Navigator.GoToGroupsPage();
 
-            SelectGroup(v);
+            SelectGroupWithCreation(v);
             InitGroupModification();
             FillGroupForm(newData);
             SubmitGroupModification();
@@ -58,6 +58,23 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public GroupHelper SelectGroupWithCreation(int index)
+        {
+            manager.Navigator.GoToGroupsPage();
+            if (IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + index + "]")))
+            {
+                SelectGroup(index);
+            }
+            else
+            {
+                GroupData group = new GroupData("Тут");
+                group.Header = "был";
+                group.Footer = "SelectGroupWithCreation";
+                Create(group);
+                SelectGroupWithCreation(index);
+            }
+            return this;
+        }
 
         public GroupHelper FillGroupForm(GroupData group)
         {

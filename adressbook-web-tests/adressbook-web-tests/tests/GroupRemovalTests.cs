@@ -18,9 +18,9 @@ namespace WebAddressbookTests
         }
 
         [Test]
-        public void GroupRemovalTest2()
+        public void GroupRemovalTest10()
         {
-            app.Groups.Remove(2);
+            app.Groups.Remove(10);
         }
     }
 }

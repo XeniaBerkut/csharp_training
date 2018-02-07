@@ -21,9 +21,17 @@ namespace WebAddressbookTests
         [Test]
         public void ContactModificationTest2()
         {
-            ContactData contact = new ContactData("Hello233", "Iam233", "Xenia233");
+            ContactData contact = new ContactData("Hello23", "Iam23", "Xenia23");
 
             app.Contacts.Modify(2, contact);
+        }
+
+        [Test]
+        public void ContactModificationTest10()
+        {
+            ContactData contact = new ContactData("Hello234", "Iam234", "Xenia234");
+
+            app.Contacts.Modify(10, contact);
         }
     }
 }

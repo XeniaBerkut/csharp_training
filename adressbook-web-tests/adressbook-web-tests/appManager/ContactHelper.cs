@@ -16,10 +16,27 @@ namespace WebAddressbookTests
             : base(manager)
         {
         }
+        public ContactHelper Modify(int v, ContactData contact)
+        {
+            //manager.Navigator.GoToHomePage();
+            SelectContactForEdit(v);
+            FillContactForm(contact);
+            SubmitModify();
+            return this;
+        }
+
+        public ContactHelper Create(ContactData contact)
+        {
+            manager.Navigator.GoToHomePage();
+            InitContactCreation();
+            FillContactForm(contact);
+            SubmitContactCreation();
+            return this;
+        }
 
         public ContactHelper Remove(int v)
         {
-            manager.Navigator.GoToHomePage();
+            //manager.Navigator.GoToHomePage();
             SelectContactForRemove(v);
             RemoveContact();
             CloseMessage();
@@ -51,11 +68,11 @@ namespace WebAddressbookTests
             manager.Navigator.GoToHomePage();
             if (IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + index + "]")))
             {
-                driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+                SelectContact(index);
             }
             else
             {
-                ContactData contact = new ContactData("Тут", "Был", "SelectContact");
+                ContactData contact = new ContactData("Тут", "Был", "SelectContactForRemove");
                 Create(contact);
                 SelectContactForRemove(index);
             }
@@ -63,25 +80,7 @@ namespace WebAddressbookTests
             //driver.FindElement(By.Id(" + index + ")).Click();
         }
 
-        public ContactHelper Modify(int v, ContactData contact)
-        {
-            manager.Navigator.GoToHomePage();
-            SelectContactForEdit(v);
-            FillContactForm(contact);
-            SubmitModify();
-            return this;
-        }
 
-
-
-        public ContactHelper Create(ContactData contact)
-        {
-            manager.Navigator.GoToHomePage();
-            InitContactCreation();
-            FillContactForm(contact);
-            SubmitContactCreation();
-            return this;
-        }
 
         public ContactHelper InitContactCreation()
         {
@@ -109,10 +108,26 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper SelectContactForEdit(int index)
+        public ContactHelper EditContact(int index)
         {
             driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + index + "]")).Click();
             return this;
+        }
+
+        public void SelectContactForEdit(int index)
+        {
+            manager.Navigator.GoToHomePage();
+            if (IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + index + "]")))
+            {
+                EditContact(index);
+            }
+            else
+            {
+                ContactData contact = new ContactData("Тут", "Был", "SelectContactForEdit");
+                Create(contact);
+                SelectContactForEdit(index);
+            }
+            
         }
     }
 }

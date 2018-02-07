@@ -28,5 +28,11 @@ namespace WebAddressbookTests
             app.Contacts.Remove(3);
         }
 
+        [Test]
+        public void ContactRemovalTest10()
+        {
+            app.Contacts.Remove(10);
+        }
+
     }
 }
