@@ -14,13 +14,19 @@ namespace WebAddressbookTests
         [Test]
         public void GroupRemovalTest1()
         {
-            app.Groups.Remove(1);            
+            int i = 1;
+
+            app.Groups.CreateIfNotPresent(i)
+                      .Remove(i);            
         }
 
         [Test]
         public void GroupRemovalTest10()
         {
-            app.Groups.Remove(10);
+            int i = 10;
+
+            app.Groups.CreateIfNotPresent(i)
+                      .Remove(i);
         }
     }
 }

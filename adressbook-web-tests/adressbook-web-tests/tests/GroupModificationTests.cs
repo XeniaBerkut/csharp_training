@@ -18,8 +18,10 @@ namespace WebAddressbookTests
             GroupData newData = new GroupData("Group");
             newData.Header = "Modification";
             newData.Footer = "Test";
+            int i = 1;
 
-            app.Groups.Modify(1, newData);
+            app.Groups.CreateIfNotPresent(i)
+                      .Modify(i, newData);
 
 
 
@@ -31,11 +33,10 @@ namespace WebAddressbookTests
             GroupData newData = new GroupData("GroupModificationTest2");
             newData.Header = null;
             newData.Footer = null;
+            int i = 5;
 
-            app.Groups.Modify(5, newData);
-
-
-
+            app.Groups.CreateIfNotPresent(i)
+                      .Modify(i, newData);
         }
 
     }

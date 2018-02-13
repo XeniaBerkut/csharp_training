@@ -18,8 +18,8 @@ namespace WebAddressbookTests
         }
         public ContactHelper Modify(int v, ContactData contact)
         {
-            //manager.Navigator.GoToHomePage();
-            SelectContactForEdit(v);
+            manager.Navigator.GoToHomePage();
+            EditContact(v);
             FillContactForm(contact);
             SubmitModify();
             return this;
@@ -36,8 +36,8 @@ namespace WebAddressbookTests
 
         public ContactHelper Remove(int v)
         {
-            //manager.Navigator.GoToHomePage();
-            SelectContactForRemove(v);
+            manager.Navigator.GoToHomePage();
+            SelectContact(v);
             RemoveContact();
             CloseMessage();
             return this;
@@ -59,26 +59,10 @@ namespace WebAddressbookTests
         public ContactHelper SelectContact(int index)
         {
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();            
-            //driver.FindElement(By.Id(" + index + ")).Click();
             return this;
         }
 
-        public void SelectContactForRemove(int index)
-        {
-            manager.Navigator.GoToHomePage();
-            if (IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + index + "]")))
-            {
-                SelectContact(index);
-            }
-            else
-            {
-                ContactData contact = new ContactData("Тут", "Был", "SelectContactForRemove");
-                Create(contact);
-                SelectContactForRemove(index);
-            }
-            
-            //driver.FindElement(By.Id(" + index + ")).Click();
-        }
+
 
 
 
@@ -114,20 +98,18 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public void SelectContactForEdit(int index)
+        public ContactHelper CreateIfNotPresent(int index)
         {
             manager.Navigator.GoToHomePage();
-            if (IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + index + "]")))
+            if (!IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + index + "]")))
+
             {
-                EditContact(index);
-            }
-            else
-            {
-                ContactData contact = new ContactData("Тут", "Был", "SelectContactForEdit");
+                ContactData contact = new ContactData("Тут", "Был", "CreateIfNotPresent");
                 Create(contact);
-                SelectContactForEdit(index);
+                CreateIfNotPresent(index);
             }
-            
+
+            return this;
         }
     }
 }
