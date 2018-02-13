@@ -18,10 +18,18 @@ namespace WebAddressbookTests
             GroupData newData = new GroupData("Group");
             newData.Header = "Modification";
             newData.Footer = "Test";
-            int i = 1;
+            int i = 0;
 
-            app.Groups.CreateIfNotPresent(i)
-                      .Modify(i, newData);
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
+
+            app.Groups.CreateIfNotPresent(i+1)
+                      .Modify(i+1, newData);
+            
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+            oldGroups[i].Name = newData.Name;
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
 
 
 
@@ -33,10 +41,18 @@ namespace WebAddressbookTests
             GroupData newData = new GroupData("GroupModificationTest2");
             newData.Header = null;
             newData.Footer = null;
-            int i = 5;
+            int i = 4;
 
-            app.Groups.CreateIfNotPresent(i)
-                      .Modify(i, newData);
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
+
+            app.Groups.CreateIfNotPresent(i+1)
+                      .Modify(i+1, newData);
+
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+            oldGroups[i].Name = newData.Name;
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
         }
 
     }
