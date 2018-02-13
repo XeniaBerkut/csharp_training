@@ -43,6 +43,23 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public List<ContactData> GetContactList()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            manager.Navigator.GoToHomePage();
+            ICollection<IWebElement> elements = driver.FindElements(By.XPath("//tr[@name='entry']"));
+            driver.FindElements(By.XPath("//tr[@name='entry']//td[@cellIndex='1']"));
+            driver.FindElements(By.XPath("//tr[@name='entry']//td[@cellIndex='2']"));
+
+            foreach (IWebElement element in elements)
+            {
+                contacts.Add(new ContactData(element.Text));
+            }
+
+
+            return contacts;
+        }
+
         public ContactHelper CloseMessage()
         {
             driver.SwitchTo().Alert().Accept();

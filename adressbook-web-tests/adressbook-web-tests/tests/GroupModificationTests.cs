@@ -20,10 +20,11 @@ namespace WebAddressbookTests
             newData.Footer = "Test";
             int i = 0;
 
+            app.Groups.CreateIfNotPresent(i + 1);
+
             List<GroupData> oldGroups = app.Groups.GetGroupList();
 
-            app.Groups.CreateIfNotPresent(i+1)
-                      .Modify(i+1, newData);
+            app.Groups.Modify(i+1, newData);
             
             List<GroupData> newGroups = app.Groups.GetGroupList();
             oldGroups[i].Name = newData.Name;
@@ -41,12 +42,13 @@ namespace WebAddressbookTests
             GroupData newData = new GroupData("GroupModificationTest2");
             newData.Header = null;
             newData.Footer = null;
-            int i = 4;
+            int i = 4;            
+
+            app.Groups.CreateIfNotPresent(i + 1);
 
             List<GroupData> oldGroups = app.Groups.GetGroupList();
 
-            app.Groups.CreateIfNotPresent(i+1)
-                      .Modify(i+1, newData);
+            app.Groups.Modify(i+1, newData);
 
             List<GroupData> newGroups = app.Groups.GetGroupList();
             oldGroups[i].Name = newData.Name;

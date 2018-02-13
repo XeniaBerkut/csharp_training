@@ -16,10 +16,11 @@ namespace WebAddressbookTests
         public void GroupRemovalTest1()
         {
             int i = 0;
+            app.Groups.CreateIfNotPresent(i + 1);
+
             List<GroupData> oldGroups = app.Groups.GetGroupList();
 
-            app.Groups.CreateIfNotPresent(i+1)
-                      .Remove(i+1);
+            app.Groups.Remove(i+1);
 
             List<GroupData> newGroups = app.Groups.GetGroupList();
             oldGroups.RemoveAt(i);
@@ -29,10 +30,17 @@ namespace WebAddressbookTests
         [Test]
         public void GroupRemovalTest10()
         {
-            int i = 10;
+            int i = 9;       
 
-            app.Groups.CreateIfNotPresent(i)
-                      .Remove(i);
+            app.Groups.CreateIfNotPresent(i+1);
+
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
+
+            app.Groups.Remove(i+1);
+
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+            oldGroups.RemoveAt(i);
+            Assert.AreEqual(oldGroups, newGroups);
         }
     }
 }
