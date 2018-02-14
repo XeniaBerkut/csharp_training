@@ -51,8 +51,9 @@ namespace WebAddressbookTests
 
             foreach (IWebElement element in elements)
             {
-                string a = element.FindElement(By.XPath("//td[@cellIndex='2']")).Text;
-                string b = element.FindElement(By.XPath("//td[@cellIndex='1']")).Text;
+                //string a = element.FindElement(By.XPath("//td[@cellIndex='2']")).Text;  
+                string a = element.FindElement(By.CssSelector("td:nth-of-type(3)")).Text;
+                string b = element.FindElement(By.CssSelector("td:nth-of-type(2)")).Text;
                 contacts.Add(new ContactData(a, b));
             }
 
