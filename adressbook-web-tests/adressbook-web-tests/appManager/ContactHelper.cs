@@ -48,12 +48,12 @@ namespace WebAddressbookTests
             List<ContactData> contacts = new List<ContactData>();
             manager.Navigator.GoToHomePage();
             ICollection<IWebElement> elements = driver.FindElements(By.XPath("//tr[@name='entry']"));
-            driver.FindElements(By.XPath("//tr[@name='entry']//td[@cellIndex='1']"));
-            driver.FindElements(By.XPath("//tr[@name='entry']//td[@cellIndex='2']"));
 
             foreach (IWebElement element in elements)
             {
-                contacts.Add(new ContactData(element.Text));
+                string a = element.FindElement(By.XPath("//td[@cellIndex='2']")).Text;
+                string b = element.FindElement(By.XPath("//td[@cellIndex='1']")).Text;
+                contacts.Add(new ContactData(a, b));
             }
 
 
