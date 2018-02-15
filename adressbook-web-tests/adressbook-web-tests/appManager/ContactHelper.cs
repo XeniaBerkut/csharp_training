@@ -43,22 +43,48 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public int GetContactCount()
+        {
+            manager.Navigator.GoToHomePage();
+            return driver.FindElements(By.XPath("//tr[@name='entry']")).Count;
+        }
+
+        private List<ContactData> contactCache = null;
+
         public List<ContactData> GetContactList()
         {
-            List<ContactData> contacts = new List<ContactData>();
-            manager.Navigator.GoToHomePage();
+            if (contactCache == null)
+            {
+                contactCache = new List<ContactData>();
+                manager.Navigator.GoToHomePage();
+                ICollection<IWebElement> elements = driver.FindElements(By.XPath("//tr[@name='entry']"));
+
+                foreach (IWebElement element in elements)
+                {
+                    string a = element.FindElement(By.XPath(".//td[3]")).Text;
+                    string b = element.FindElement(By.XPath(".//td[2]")).Text;
+                    contactCache.Add(new ContactData(a, b) {
+                        Id = element.FindElement(By.TagName("input")).GetAttribute("value")
+                    });
+                }
+
+            }
+
+            //List<ContactData> contacts = new List<ContactData>();
+            /*manager.Navigator.GoToHomePage();
             ICollection<IWebElement> elements = driver.FindElements(By.XPath("//tr[@name='entry']"));
 
             foreach (IWebElement element in elements)
             {
-                //string a = element.FindElement(By.XPath("//td[@cellIndex='2']")).Text;  
-                string a = element.FindElement(By.CssSelector("td:nth-of-type(3)")).Text;
-                string b = element.FindElement(By.CssSelector("td:nth-of-type(2)")).Text;
+                string a = element.FindElement(By.XPath(".//td[3]")).Text;
+                string b = element.FindElement(By.XPath(".//td[2]")).Text;
+                //string a = element.FindElement(By.CssSelector("td:nth-of-type(3)")).Text;
+                //string b = element.FindElement(By.CssSelector("td:nth-of-type(2)")).Text;
                 contacts.Add(new ContactData(a, b));
-            }
+            } */
 
 
-            return contacts;
+            return new List<ContactData>(contactCache);
         }
 
         public ContactHelper CloseMessage()
@@ -71,6 +97,7 @@ namespace WebAddressbookTests
         public ContactHelper RemoveContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            contactCache = null;
             return this;
         }
 
@@ -101,12 +128,14 @@ namespace WebAddressbookTests
         public ContactHelper SubmitContactCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
+            contactCache = null;
             return this;
         }
 
         public ContactHelper SubmitModify()
         {
             driver.FindElement(By.XPath("(//input[@name='update'])[2]")).Click();
+            contactCache = null;
             return this;
         }
 
@@ -127,7 +156,14 @@ namespace WebAddressbookTests
                 CreateIfNotPresent(index);
             }
 
-            return this;
+            /*while (!IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + index + "]")))
+            {
+                manager.Navigator.GoToHomePage();
+                ContactData contact = new ContactData("Тут", "Был", "CreateIfNotPresent");
+                Create(contact);
+            }*/
+
+                return this;
         }
     }
 }

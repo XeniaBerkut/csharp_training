@@ -15,10 +15,16 @@ namespace WebAddressbookTests
         {
             ContactData contact = new ContactData("Hello2", "Iam2", "Xenia2");
             int i = 0;
+
             app.Contacts.CreateIfNotPresent(i + 1);
             List<ContactData> oldContacts = app.Contacts.GetContactList();
 
+            ContactData oldData = oldContacts[i];
+
             app.Contacts.Modify(i+1, contact);
+
+            Assert.AreEqual(oldContacts.Count, app.Contacts.GetContactCount());
+
             List<ContactData> newContacts = app.Contacts.GetContactList();
 
             oldContacts[i].Firstname = contact.Firstname;
@@ -26,6 +32,14 @@ namespace WebAddressbookTests
             oldContacts.Sort();
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);
+
+            foreach (ContactData c in newContacts)
+            {
+                if (c.Id == oldData.Id)
+                {
+                    Assert.AreEqual(contact.Firstname+contact.Lastname, c.Firstname + c.Lastname);
+                }
+            }
         }
 
 
@@ -38,7 +52,12 @@ namespace WebAddressbookTests
             app.Contacts.CreateIfNotPresent(i + 1);
             List<ContactData> oldContacts = app.Contacts.GetContactList();
 
+            ContactData oldData = oldContacts[i];
+
             app.Contacts.Modify(i + 1, contact);
+
+            Assert.AreEqual(oldContacts.Count, app.Contacts.GetContactCount());
+
             List<ContactData> newContacts = app.Contacts.GetContactList();
 
             oldContacts[i].Firstname = contact.Firstname;
@@ -46,6 +65,14 @@ namespace WebAddressbookTests
             oldContacts.Sort();
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);
+
+            foreach (ContactData c in newContacts)
+            {
+                if (c.Id == oldData.Id)
+                {
+                    Assert.AreEqual(contact.Firstname + contact.Lastname, c.Firstname + c.Lastname);
+                }
+            }
         }
     }
 }

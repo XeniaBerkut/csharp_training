@@ -22,9 +22,18 @@ namespace WebAddressbookTests
 
             app.Groups.Remove(i+1);
 
+            Assert.AreEqual(oldGroups.Count - 1, app.Groups.GetGroupCount());
+
             List<GroupData> newGroups = app.Groups.GetGroupList();
+            GroupData tbr = oldGroups[i];
             oldGroups.RemoveAt(i);
             Assert.AreEqual(oldGroups, newGroups);
+
+            foreach (GroupData group in newGroups)
+            {
+                Assert.AreNotEqual(group.Id, tbr.Id);
+            }
+
         }
 
         [Test]
@@ -38,9 +47,21 @@ namespace WebAddressbookTests
 
             app.Groups.Remove(i+1);
 
+            Assert.AreEqual(oldGroups.Count - 1, app.Groups.GetGroupCount());
+
+
+
             List<GroupData> newGroups = app.Groups.GetGroupList();
+
+            foreach (GroupData group in newGroups)
+            {
+                Assert.AreNotEqual(group.Id, oldGroups[i].Id);
+            }
+
             oldGroups.RemoveAt(i);
             Assert.AreEqual(oldGroups, newGroups);
+
+
         }
     }
 }

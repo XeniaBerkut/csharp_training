@@ -8,42 +8,31 @@ namespace WebAddressbookTests
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
-        private string firstname;
-        private string middlename;
-        private string lastname;
-        private string nickname = "";
-        private string company = "";
-        private string address = "";
-        private string mobile = "";
-        private string work = "";
-        private string email = "";
-
-
-
+        
         public ContactData(string firstname, string middlename, string lastname)
         {
-            this.firstname = firstname;
-            this.middlename = middlename;
-            this.lastname = lastname;
+            Firstname = firstname;
+            Middlename = middlename;
+            Lastname = lastname;
         }
 
         public ContactData(string firstname, string lastname)
         {
-            this.firstname = firstname;
-            this.lastname = lastname;
+            Firstname = firstname;
+            Lastname = lastname;
         }
 
         public ContactData(string firstname, string middlename, string lastname, string nickname, string company, string address, string mobile, string work, string email)
         {
-            this.firstname = firstname;
-            this.middlename = middlename;
-            this.lastname = lastname;
-            this.nickname = nickname;
-            this.company = company;
-            this.address = address;
-            this.mobile = mobile;
-            this.work = work;
-            this.email = email;
+            Firstname = firstname;
+            Middlename = middlename;
+            Lastname = lastname;
+            Nickname = nickname;
+            Company = company;
+            Address = address;
+            Mobile = mobile;
+            Work = work;
+            Email = email;
         }
 
         public bool Equals(ContactData other)
@@ -79,121 +68,24 @@ namespace WebAddressbookTests
             return (Firstname + Lastname).CompareTo(other.Firstname + other.Lastname);
         }
 
-        public string Firstname
-        {
-            get
-            {
-                return firstname;
-            }
-            set
-            {
-                firstname = value;
-            }
+        public string Firstname { get; set; }
 
-        }
+        public string Middlename { get; set; }
 
-        public string Middlename
-        {
-            get
-            {
-                return middlename;
-            }
-            set
-            {
-                middlename = value;
-            }
+        public string Lastname { get; set; }
 
-        }
+        public string Nickname { get; set; }
 
-        public string Lastname
-        {
-            get
-            {
-                return lastname;
-            }
-            set
-            {
-                lastname = value;
-            }
+        public string Company { get; set; }
 
-        }
+        public string Address { get; set; }
 
-        public string Nickname
-        {
-            get
-            {
-                return nickname;
-            }
-            set
-            {
-                nickname = value;
-            }
+        public string Mobile { get; set; }
 
-        }
+        public string Work { get; set; }
 
-        public string Company
-        {
-            get
-            {
-                return company;
-            }
-            set
-            {
-                company = value;
-            }
+        public string Email { get; set; }
 
-        }
-
-        public string Address
-        {
-            get
-            {
-                return address;
-            }
-            set
-            {
-                address = value;
-            }
-
-        }
-
-        public string Mobile
-        {
-            get
-            {
-                return mobile;
-            }
-            set
-            {
-                mobile = value;
-            }
-
-        }
-
-        public string Work
-        {
-            get
-            {
-                return work;
-            }
-            set
-            {
-                work = value;
-            }
-
-        }
-
-        public string Email
-        {
-            get
-            {
-                return email;
-            }
-            set
-            {
-                email = value;
-            }
-
-        }
+        public string Id { get; set; }
     }
 }

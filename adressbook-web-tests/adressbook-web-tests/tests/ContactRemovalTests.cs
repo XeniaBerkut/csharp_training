@@ -19,9 +19,20 @@ namespace WebAddressbookTests
 
 
             app.Contacts.Remove(i+1);
+
+            Assert.AreEqual(oldContacts.Count - 1, app.Contacts.GetContactCount());
+
+            
+
             List<ContactData> newContacts = app.Contacts.GetContactList();
+            ContactData tbr = oldContacts[i];
             oldContacts.RemoveAt(i);
             Assert.AreEqual(oldContacts, newContacts);
+
+            foreach (ContactData c in newContacts)
+            {
+                Assert.AreNotEqual(c.Id, tbr.Id);
+            }
         }
 
 
@@ -33,9 +44,19 @@ namespace WebAddressbookTests
             List<ContactData> oldContacts = app.Contacts.GetContactList();
 
             app.Contacts.Remove(i+1);
+
+            Assert.AreEqual(oldContacts.Count - 1, app.Contacts.GetContactCount());
+
+
             List<ContactData> newContacts = app.Contacts.GetContactList();
+            ContactData tbr = oldContacts[i];
             oldContacts.RemoveAt(i);
             Assert.AreEqual(oldContacts, newContacts);
+
+            foreach (ContactData c in newContacts)
+            {
+                Assert.AreNotEqual(c.Id, tbr.Id);
+            }
         }
 
     }
