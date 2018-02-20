@@ -31,6 +31,35 @@ namespace WebAddressbookTests
         }
 
         [Test]
+        public void ContactCreationTestFullForHomePage()
+        {
+
+            ContactData contact = new ContactData("Xenia", "Ivannikova")
+            {
+                Address = "Южная д.9",
+                Email = "first@mail.ru",
+                Email2 = "second@mail.ru",
+                Email3 = "third@mail.ru",
+                HomePhone = "+7(916)555-66-77",
+                MobilePhone = "098-78-77",
+                WorkPhone = "75667 7777",
+                SecondaryHomePhone = "?"
+            };
+
+
+
+            List<ContactData> oldContacts = app.Contacts.GetContactList();
+            app.Contacts.Create(contact);
+
+            List<ContactData> newContacts = app.Contacts.GetContactList();
+            oldContacts.Add(contact);
+            oldContacts.Sort();
+            newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts);
+
+        }
+
+        [Test]
         public void ContactCreationTest2()
         {
 
