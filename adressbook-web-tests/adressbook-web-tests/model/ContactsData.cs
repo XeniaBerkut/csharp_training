@@ -181,26 +181,33 @@ namespace WebAddressbookTests
                     if (Title != "") { info = info + "\r\n" + Title; }
                     if (Company != "") { info = info + "\r\n" + Company; }
                     if (Address != "") { info = info + "\r\n" + Address; }
-                    if (HomePhone != "") { info = info + "\r\n" + "\r\n" + "H: " + HomePhone; }
-                    if (MobilePhone != "") { info = info + "\r\n" + "M: " + MobilePhone; }
-                    if (WorkPhone != "") { info = info + "\r\n" + "W: " + WorkPhone; }
-                    if (Fax != "") { info = info + "\r\n" + "F: " + Fax; }
-                    if (Email != "") { info = info + "\r\n" + "\r\n" + Email; }
-                    if (Email2 != "") { info = info + "\r\n" + Email2; }
-                    if (Email3 != "") { info = info + "\r\n" + Email3; }
-                    if (Homepage != "") { info = info + "\r\n" + "Homepage:" + "\r\n" + Homepage; }
-                    if ((Bday != "") || (Bmonth != "") || (Byear != ""))
+                    if ((HomePhone != "") || (MobilePhone != "") || (WorkPhone != "") || (Fax != ""))
+                    {
+                        info = info + "\r\n";
+                        if (HomePhone != "") { info = info +  "\r\n" + "H: " + HomePhone; }
+                        if (MobilePhone != "") { info = info + "\r\n" + "M: " + MobilePhone; }
+                        if (WorkPhone != "") { info = info + "\r\n" + "W: " + WorkPhone; }
+                        if (Fax != "") { info = info + "\r\n" + "F: " + Fax; }
+                    }
+                    if ((Email != "") || (Email2 != "") || (Email3 != "") || (Homepage != ""))
+                    {
+                        if (Email != "") { info = info + "\r\n" + "\r\n" + Email; }
+                        if (Email2 != "") { info = info + "\r\n" + Email2; }
+                        if (Email3 != "") { info = info + "\r\n" + Email3; }
+                        if (Homepage != "") { info = info + "\r\n" + "Homepage:" + "\r\n" + Homepage; }
+                    }
+                    if ((Bday != "0") || (Bmonth != "-") || (Byear != ""))
                     {
                         info = info + "\r\n" + "\r\n" + "Birthday ";
-                        if (Bday != "") { info = info + Bday + "."; }
-                        if (Bmonth != "") { info = info + " " + Bmonth; }
+                        if (Bday != "0") { info = info + Bday + "."; }
+                        if (Bmonth != "-") { info = info + " " + Bmonth; }
                         if (Byear != "") { info = info + " " + Byear + " (18)"; }
                     }
-                    if ((Aday != "") || (Amonth != "") || (Ayear != ""))
+                    if ((Aday != "0") || (Amonth != "-") || (Ayear != ""))
                     {
                         info = info + "\r\n" + "Anniversary ";
-                        if (Aday != "") { info = info + Aday + "."; }
-                        if (Amonth != "") { info = info + " " + Amonth; }
+                        if (Aday != "0") { info = info + Aday + "."; }
+                        if (Amonth != "-") { info = info + " " + Amonth; }
                         if (Ayear != "") { info = info + " " + Ayear + " (17)"; }
                     }
                     if (Address2 != "") { info = info + "\r\n" + "\r\n" + Address2; }

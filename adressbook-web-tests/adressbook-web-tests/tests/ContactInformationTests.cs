@@ -69,17 +69,55 @@ namespace WebAddressbookTests
             };
             int i = 0;
             app.Contacts.CreateIfNotPresentWithParam(i + 1, contact);
-
-
             ContactData fromDetailForm = app.Contacts.GetContactInformationFromDetailForm(i);
             ContactData fromForm = app.Contacts.GetContactInformationFromEditForm(i);
-            string x = fromForm.AllInfo;
+            string x = fromForm.AllInfo;        
             
-            //System.Console.Out.Write(fromForm.AllInfo);
 
             Assert.AreEqual(fromForm.AllInfo, fromDetailForm.AllInfo);
 
         }
+
+        [Test]
+        public void TestContactInformationDetail2()
+        {
+            int i = 2;
+            app.Contacts.CreateIfNotPresent(i + 1);
+            ContactData fromDetailForm = app.Contacts.GetContactInformationFromDetailForm(i);
+            ContactData fromForm = app.Contacts.GetContactInformationFromEditForm(i);
+            string x = fromForm.AllInfo;
+
+            
+            Assert.AreEqual(fromForm.AllInfo, fromDetailForm.AllInfo);
+        }
+
+        [Test]
+        public void TestContactInformationDetail3()
+        {
+            int i = 5;
+            app.Contacts.CreateIfNotPresent(i + 1);
+            ContactData fromDetailForm = app.Contacts.GetContactInformationFromDetailForm(i);
+            ContactData fromForm = app.Contacts.GetContactInformationFromEditForm(i);
+            string x = fromForm.AllInfo;
+
+
+            Assert.AreEqual(fromForm.AllInfo, fromDetailForm.AllInfo);
+        }
+
+
+        [Test]
+        public void TestContactInformationDetail4()
+        {
+            int i = 6;
+            app.Contacts.CreateIfNotPresent(i + 1);
+            ContactData fromDetailForm = app.Contacts.GetContactInformationFromDetailForm(i);
+            ContactData fromForm = app.Contacts.GetContactInformationFromEditForm(i);
+            string x = fromForm.AllInfo;
+
+
+            Assert.AreEqual(fromForm.AllInfo, fromDetailForm.AllInfo);
+        }
+
 
     }
 }
