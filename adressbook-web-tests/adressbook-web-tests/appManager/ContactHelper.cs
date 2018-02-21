@@ -180,10 +180,6 @@ namespace WebAddressbookTests
             return this;
         }
 
-
-
-
-
         public ContactHelper InitContactCreation()
         {
             driver.FindElement(By.LinkText("add new")).Click();
@@ -239,23 +235,28 @@ namespace WebAddressbookTests
 
         public ContactHelper CreateIfNotPresent(int index)
         {
-            manager.Navigator.GoToHomePage();
+           /* manager.Navigator.GoToHomePage();
             if (!IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + index + "]")))
 
             {
-                ContactData contact = new ContactData("Тут", "Был", "CreateIfNotPresent");
+                ContactData contact = new ContactData("Рекурсивный", "Был", "CreateIfNotPresent");
                 Create(contact);
                 CreateIfNotPresent(index);
-            }
-
-            /*while (!IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + index + "]")))
-            {
-                manager.Navigator.GoToHomePage();
-                ContactData contact = new ContactData("Тут", "Был", "CreateIfNotPresent");
-                Create(contact);
             }*/
 
-                return this;
+            manager.Navigator.GoToHomePage();
+            int count = GetContactCount();
+            if (!IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + index + "]")))
+            {
+                for (int i = index; i > count; count++)
+                {
+                    manager.Navigator.GoToHomePage();
+                    ContactData contact = new ContactData("If", "For", "CreateIfNotPresent");
+                    Create(contact);
+                }
+            }
+
+            return this;
         }
 
         public int GetNumberOfSearchResults()

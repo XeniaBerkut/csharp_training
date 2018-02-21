@@ -83,15 +83,28 @@ namespace WebAddressbookTests
         public GroupHelper CreateIfNotPresent(int index)
         {
             manager.Navigator.GoToGroupsPage();
+            int count = GetGroupCount();
+
             if (!IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + index + "]")))
             {
-                GroupData group = new GroupData("Тут");
-                group.Header = "был";
-                group.Footer = "CreateIfNotPresent";
-                Create(group);
-                CreateIfNotPresent(index);
+                for (int i = index; i > count; count++)
+                {
+                    GroupData group = new GroupData("If");
+                    group.Header = "for";
+                    group.Footer = "CreateIfNotPresent";
+                    Create(group);
+                }
             }
-            return this;
+                return this;
+
+/*if (!IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + index + "]")))
+{
+    GroupData group = new GroupData("Тут");
+    group.Header = "был";
+    group.Footer = "CreateIfNotPresent";
+    Create(group);
+    CreateIfNotPresent(index);
+}*/
         }
 
         public GroupHelper FillGroupForm(GroupData group)

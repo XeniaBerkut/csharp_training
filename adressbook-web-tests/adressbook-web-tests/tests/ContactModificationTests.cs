@@ -45,10 +45,10 @@ namespace WebAddressbookTests
 
 
         [Test]
-        public void ContactModificationTest10()
+        public void ContactModificationTest5()
         {
             ContactData contact = new ContactData("Hello234", "Iam234", "Xenia234");
-            int i = 9;
+            int i = 4;
             app.Contacts.CreateIfNotPresent(i + 1);
             List<ContactData> oldContacts = app.Contacts.GetContactList();
 
