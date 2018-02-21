@@ -96,15 +96,6 @@ namespace WebAddressbookTests
                 }
             }
                 return this;
-
-/*if (!IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + index + "]")))
-{
-    GroupData group = new GroupData("Тут");
-    group.Header = "был";
-    group.Footer = "CreateIfNotPresent";
-    Create(group);
-    CreateIfNotPresent(index);
-}*/
         }
 
         public GroupHelper FillGroupForm(GroupData group)

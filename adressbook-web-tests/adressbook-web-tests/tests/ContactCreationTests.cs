@@ -43,7 +43,7 @@ namespace WebAddressbookTests
                 HomePhone = "+7(916)555-66-77",
                 MobilePhone = "098-78-77",
                 WorkPhone = "75667 7777",
-                SecondaryHomePhone = "?"
+                Phone2 = "?"
             };
 
 

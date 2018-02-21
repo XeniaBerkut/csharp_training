@@ -11,6 +11,12 @@ namespace WebAddressbookTests
     {
         private string allPhones;
         private string allEmails;
+        private string allInfo;
+
+        public ContactData(string allInfo)
+        {
+            AllInfo = allInfo;
+        }
 
         public ContactData(string firstname, string middlename, string lastname)
         {
@@ -59,7 +65,7 @@ namespace WebAddressbookTests
 
         public override string ToString()
         {
-            return "Firstname=" + Firstname + ", Lastname=" + Lastname;
+            return "Firstname=" + Firstname + ", Lastname=" + Lastname + ", AllInfo=" + AllInfo;
         }
 
         public int CompareTo(ContactData other)
@@ -94,7 +100,19 @@ namespace WebAddressbookTests
         public string Id { get; set; }
         public string Email2 { get; set; }
         public string Email3 { get; set; }
-        public string SecondaryHomePhone { get; set; }        
+        public string Phone2 { get; set; }
+        public string Title { get; set; }
+        public string Fax { get; set; }
+        public string Address2 { get; set; }
+        public string Notes { get; set; }
+        public string Homepage { get; set; }
+
+        public string Bday { get; set; }
+        public string Bmonth { get; set; }
+        public string Byear { get; set; }
+        public string Aday { get; set; }
+        public string Amonth { get; set; }
+        public string Ayear { get; set; }      
 
 
         public string AllPhones
@@ -107,7 +125,7 @@ namespace WebAddressbookTests
                 }
                 else
                 {
-                    return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone) + CleanUp(SecondaryHomePhone)).Trim();
+                    return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone) + CleanUp(Phone2)).Trim();
                 }
             }
             set
@@ -142,6 +160,59 @@ namespace WebAddressbookTests
             }
             //return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
            return Regex.Replace(phone, "[ ()-]", "") + "\r\n";
+        }
+
+        
+        public string AllInfo
+        {
+            get
+            {
+                if (allInfo != null)
+                {
+                    return allInfo;
+                }
+                else
+                {
+                    string info = null;
+                    if (Firstname != ""){ info = Firstname + " "; }
+                    if (Middlename != "") { info = info + Middlename + " "; }
+                    if (Lastname != "") { info = info + Lastname; }
+                    if (Nickname != "") { info = info + "\r\n" + Nickname; }
+                    if (Title != "") { info = info + "\r\n" + Title; }
+                    if (Company != "") { info = info + "\r\n" + Company; }
+                    if (Address != "") { info = info + "\r\n" + Address; }
+                    if (HomePhone != "") { info = info + "\r\n" + "\r\n" + "H: " + HomePhone; }
+                    if (MobilePhone != "") { info = info + "\r\n" + "M: " + MobilePhone; }
+                    if (WorkPhone != "") { info = info + "\r\n" + "W: " + WorkPhone; }
+                    if (Fax != "") { info = info + "\r\n" + "F: " + Fax; }
+                    if (Email != "") { info = info + "\r\n" + "\r\n" + Email; }
+                    if (Email2 != "") { info = info + "\r\n" + Email2; }
+                    if (Email3 != "") { info = info + "\r\n" + Email3; }
+                    if (Homepage != "") { info = info + "\r\n" + "Homepage:" + "\r\n" + Homepage; }
+                    if ((Bday != "") || (Bmonth != "") || (Byear != ""))
+                    {
+                        info = info + "\r\n" + "\r\n" + "Birthday ";
+                        if (Bday != "") { info = info + Bday + "."; }
+                        if (Bmonth != "") { info = info + " " + Bmonth; }
+                        if (Byear != "") { info = info + " " + Byear + " (18)"; }
+                    }
+                    if ((Aday != "") || (Amonth != "") || (Ayear != ""))
+                    {
+                        info = info + "\r\n" + "Anniversary ";
+                        if (Aday != "") { info = info + Aday + "."; }
+                        if (Amonth != "") { info = info + " " + Amonth; }
+                        if (Ayear != "") { info = info + " " + Ayear + " (17)"; }
+                    }
+                    if (Address2 != "") { info = info + "\r\n" + "\r\n" + Address2; }
+                    if (Phone2 != "") { info = info + "\r\n" + "\r\n" + "P: " + Phone2; }
+                    if (Notes != "") { info = info + "\r\n" + "\r\n" +  Notes; }
+                    return info;
+                }
+            }
+            set
+            {
+                allInfo = value;
+            }
         }
     }
 }

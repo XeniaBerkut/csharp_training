@@ -20,24 +20,8 @@ namespace WebAddressbookTests
 
         public ContactData GetContactInformationFromTable(int i)
         {
+
             manager.Navigator.GoToHomePage();
-            if (!IsElementPresent(By.XPath("(//img[@alt='Edit'])[" + i+1 + "]")))
-            {
-                ContactData contact = new ContactData("Xenia", "Ivannikova")
-                {
-                    Address = "Южная д.9",
-                    Email = "first@mail.ru",
-                    Email2 = "second@mail.ru",
-                    Email3 = "third@mail.ru",
-                    HomePhone = "+7(916)555-66-77",
-                    MobilePhone = "098-78-77",
-                    WorkPhone = "75667 7777",
-                    SecondaryHomePhone = "?"
-                };
-
-                Create(contact);
-            }
-
             IList<IWebElement> cells = driver.FindElements(By.Name("entry"))[i]
                 .FindElements(By.TagName("td"));
             string lastName = cells[1].Text;
@@ -56,6 +40,20 @@ namespace WebAddressbookTests
 
         }
 
+        public ContactData GetContactInformationFromDetailForm(int i)
+        {
+            manager.Navigator.GoToHomePage();
+            ShowContact(i + 1);
+            string allInfo = driver.FindElement(By.Id("content")).Text;
+            return new ContactData(allInfo);
+        }
+
+        public ContactHelper ShowContact(int index)
+        {            
+            driver.FindElement(By.XPath("(//img[@alt='Details'])[" + index + "]")).Click();
+            return this;
+        }
+
         public ContactData GetContactInformationFromEditForm(int i)
         {
             manager.Navigator.GoToHomePage();
@@ -67,24 +65,55 @@ namespace WebAddressbookTests
             string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
             string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
             string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
-            string secondaryHomePhone = driver.FindElement(By.Name("phone2")).GetAttribute("value");
+            string phone2 = driver.FindElement(By.Name("phone2")).GetAttribute("value");
 
             string email = driver.FindElement(By.Name("email")).GetAttribute("value");
             string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
             string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
 
+            string middleName = driver.FindElement(By.Name("middlename")).GetAttribute("value");
+            string nickName = driver.FindElement(By.Name("nickname")).GetAttribute("value");
+            string company = driver.FindElement(By.Name("company")).GetAttribute("value");
+            string title = driver.FindElement(By.Name("title")).GetAttribute("value");
+            string fax = driver.FindElement(By.Name("fax")).GetAttribute("value");
+            string homepage = driver.FindElement(By.Name("homepage")).GetAttribute("value");
+            string address2 = driver.FindElement(By.Name("address2")).GetAttribute("value");
+            string notes = driver.FindElement(By.Name("notes")).GetAttribute("value");
+
+            string bday = driver.FindElement(By.Name("bday")).GetAttribute("value");
+            string bmonth = driver.FindElement(By.Name("bmonth")).GetAttribute("value");
+            string byear = driver.FindElement(By.Name("byear")).GetAttribute("value");
+            string aday = driver.FindElement(By.Name("aday")).GetAttribute("value");
+            string amonth = driver.FindElement(By.Name("amonth")).GetAttribute("value");
+            string ayear = driver.FindElement(By.Name("ayear")).GetAttribute("value");
+
+
 
 
             return new ContactData(firstName, lastName)
             {
+                Middlename = middleName,
+                Nickname = nickName,
+                Company = company,
+                Title = title,
                 Address = address,
                 HomePhone = homePhone,
                 MobilePhone = mobilePhone,
                 WorkPhone = workPhone,
-                SecondaryHomePhone = secondaryHomePhone,
+                Fax = fax,
+                Homepage = homepage,
+                Bday = bday,
+                Bmonth = bmonth,
+                Byear = byear,
+                Aday = aday,
+                Amonth = amonth,
+                Ayear = ayear,
                 Email = email,
                 Email2 = email2,
-                Email3 = email3
+                Email3 = email3,
+                Address2 = address2,
+                Phone2 = phone2,
+                Notes = notes                
             };
 
         }
@@ -191,22 +220,27 @@ namespace WebAddressbookTests
             Type(By.Name("firstname"), contact.Firstname);
             Type(By.Name("middlename"), contact.Middlename);
             Type(By.Name("lastname"), contact.Lastname);
-            if (contact.Address != null)
-            {Type(By.Name("address"), contact.Address);}
-            if (contact.Email != null)
-            { Type(By.Name("email"), contact.Email); }
-            if (contact.Email2 != null)
-            { Type(By.Name("email2"), contact.Email2); }
-            if (contact.Email3 != null)
-            { Type(By.Name("email3"), contact.Email3); }
-            if (contact.HomePhone != null)
-            { Type(By.Name("home"), contact.HomePhone); }
-            if (contact.MobilePhone != null)
-            { Type(By.Name("mobile"), contact.MobilePhone); }
-            if (contact.WorkPhone != null)
-            { Type(By.Name("work"), contact.WorkPhone); }
-            if (contact.SecondaryHomePhone != null)
-            { Type(By.Name("phone2"), contact.SecondaryHomePhone); }
+            Type(By.Name("nickname"), contact.Nickname);
+            Type(By.Name("title"), contact.Title);
+            Type(By.Name("company"), contact.Company);
+            Type(By.Name("address"), contact.Address);
+            Type(By.Name("home"), contact.HomePhone);
+            Type(By.Name("mobile"), contact.MobilePhone);
+            Type(By.Name("work"), contact.WorkPhone);
+            Type(By.Name("fax"), contact.Fax);
+            Type(By.Name("email"), contact.Email);
+            Type(By.Name("email2"), contact.Email2);
+            Type(By.Name("email3"), contact.Email3);
+            Type(By.Name("homepage"), contact.Homepage);
+            SelectByText(By.Name("bday"), contact.Bday);
+            SelectByText(By.Name("bmonth"), contact.Bmonth);
+            Type(By.Name("byear"), contact.Byear);
+            SelectByText(By.Name("aday"), contact.Aday);
+            SelectByText(By.Name("amonth"), contact.Amonth);
+            Type(By.Name("ayear"), contact.Ayear);
+            Type(By.Name("address2"), contact.Address2);
+            Type(By.Name("phone2"), contact.Phone2);
+            Type(By.Name("notes"), contact.Notes);
             return this;
         }
 
@@ -227,23 +261,13 @@ namespace WebAddressbookTests
         }
 
         public ContactHelper EditContact(int index)
-        {
-           // manager.Navigator.GoToHomePage();
+        {           
             driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + index + "]")).Click();
             return this;
         }
 
         public ContactHelper CreateIfNotPresent(int index)
         {
-           /* manager.Navigator.GoToHomePage();
-            if (!IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + index + "]")))
-
-            {
-                ContactData contact = new ContactData("Рекурсивный", "Был", "CreateIfNotPresent");
-                Create(contact);
-                CreateIfNotPresent(index);
-            }*/
-
             manager.Navigator.GoToHomePage();
             int count = GetContactCount();
             if (!IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + index + "]")))
@@ -256,6 +280,21 @@ namespace WebAddressbookTests
                 }
             }
 
+            return this;
+        }
+
+        public ContactHelper CreateIfNotPresentWithParam(int index, ContactData contact)
+        {
+            manager.Navigator.GoToHomePage();
+            int count = GetContactCount();
+            if (!IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + index + "]")))
+            {
+                for (int i = index; i > count; count++)
+                {
+                    manager.Navigator.GoToHomePage();
+                    Create(contact);
+                }
+            }
             return this;
         }
 
