@@ -63,5 +63,21 @@ namespace WebAddressbookTests
 
 
         }
+
+        [Test]
+        public void GroupRemoveAll()
+        {
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
+            if (oldGroups.Count != 0)
+            {
+                for (int i = 1; i <= oldGroups.Count; i++)
+                {
+                    app.Groups.Remove(1);
+                }
+            }
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+            Assert.AreEqual(newGroups.Count, 0);
+
+        }
     }
 }
