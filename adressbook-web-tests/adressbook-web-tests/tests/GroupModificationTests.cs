@@ -11,13 +11,25 @@ namespace WebAddressbookTests
 
     public class GroupModificationTests : AuthTestBase
     {
-
-        [Test]
-        public void GroupModificationTest()
+        public static IEnumerable<GroupData> RandomGroupDataProvider()
         {
-            GroupData newData = new GroupData("Group");
-            newData.Header = "Modification";
-            newData.Footer = "Test";
+            List<GroupData> groups = new List<GroupData>();
+            for (int i = 0; i < 5; i++)
+            {
+                groups.Add(new GroupData(GenerateRandomString(30))
+                {
+                    Header = GenerateRandomString(100),
+                    Footer = GenerateRandomString(100)
+                });
+            }
+            return groups;
+        }
+
+
+        [Test, TestCaseSource("RandomGroupDataProvider")]
+        public void GroupModificationTest(GroupData newData)
+        {
+            
             int i = 0;
 
             app.Groups.CreateIfNotPresent(i + 1);
@@ -44,36 +56,34 @@ namespace WebAddressbookTests
             }
         }
 
-        [Test]
-        public void GroupModificationTest5()
-        {
-            GroupData newData = new GroupData("GroupModificationTest2");
-            newData.Header = null;
-            newData.Footer = null;
-            int i = 4;            
+        [Test, TestCaseSource("RandomGroupDataProvider")]
+        public void GroupModificationTest5(GroupData newData)
+         {
 
-            app.Groups.CreateIfNotPresent(i + 1);
+             int i = 4;            
 
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
-            GroupData oldData = oldGroups[i];
+             app.Groups.CreateIfNotPresent(i + 1);
 
-            app.Groups.Modify(i+1, newData);
+             List<GroupData> oldGroups = app.Groups.GetGroupList();
+             GroupData oldData = oldGroups[i];
 
-            Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount());
+             app.Groups.Modify(i+1, newData);
 
-            List<GroupData> newGroups = app.Groups.GetGroupList();
-            oldGroups[i].Name = newData.Name;
-            oldGroups.Sort();
-            newGroups.Sort();
-            Assert.AreEqual(oldGroups, newGroups);
+             Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount());
 
-            foreach (GroupData group in newGroups)
-            {
-                if (group.Id == oldData.Id)
-                {
-                    Assert.AreEqual(newData.Name, group.Name);
-                }
-            }
-        }
+             List<GroupData> newGroups = app.Groups.GetGroupList();
+             oldGroups[i].Name = newData.Name;
+             oldGroups.Sort();
+             newGroups.Sort();
+             Assert.AreEqual(oldGroups, newGroups);
+
+             foreach (GroupData group in newGroups)
+             {
+                 if (group.Id == oldData.Id)
+                 {
+                     Assert.AreEqual(newData.Name, group.Name);
+                 }
+             }
+         }
     }
 }

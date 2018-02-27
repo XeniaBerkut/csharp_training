@@ -20,9 +20,6 @@ namespace WebAddressbookTests
                     Header = GenerateRandomString(100),
                     Footer = GenerateRandomString(100)
                 });
-                {
-
-                }
             }
             return groups;
         }
