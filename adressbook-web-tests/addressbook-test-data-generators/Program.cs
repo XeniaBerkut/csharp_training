@@ -104,7 +104,7 @@ namespace addressbook_test_data_generators
 
         private static void writeContactsToXmlFile(List<ContactData> contacts, StreamWriter writer)
         {
-            new XmlSerializer(typeof(List<GroupData>)).Serialize(writer, contacts);
+            new XmlSerializer(typeof(List<ContactData>)).Serialize(writer, contacts);
         }
 
         static void writeGroupstoXmlFile(List<GroupData> groups, StreamWriter writer)
