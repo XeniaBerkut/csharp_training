@@ -171,7 +171,7 @@ namespace WebAddressbookTests
                 }
 
             }
-
+            return new List<ContactData>(contactCache);
             //List<ContactData> contacts = new List<ContactData>();
             /*manager.Navigator.GoToHomePage();
             ICollection<IWebElement> elements = driver.FindElements(By.XPath("//tr[@name='entry']"));
@@ -186,7 +186,7 @@ namespace WebAddressbookTests
             } */
 
 
-            return new List<ContactData>(contactCache);
+
         }
 
         public ContactHelper CloseMessage()
