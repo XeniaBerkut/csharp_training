@@ -36,8 +36,6 @@ namespace WebAddressbookTests
                 AllPhones = allPhones,
                 AllEmails = allEmails
             };
-
-
         }
 
         public ContactData GetContactInformationFromDetailForm(int i)
@@ -145,6 +143,17 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactHelper Remove(ContactData tbr)
+        {
+            manager.Navigator.GoToHomePage();
+            SelectContact(tbr.Id);
+            RemoveContact();
+            CloseMessage();
+            return this;
+        }
+
+
+
         public int GetContactCount()
         {
             manager.Navigator.GoToHomePage();
@@ -206,6 +215,12 @@ namespace WebAddressbookTests
         public ContactHelper SelectContact(int index)
         {
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();            
+            return this;
+        }
+
+        public ContactHelper SelectContact(string id)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='" + id + "'])")).Click();
             return this;
         }
 

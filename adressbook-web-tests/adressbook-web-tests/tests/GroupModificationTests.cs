@@ -1,48 +1,34 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using Newtonsoft.Json;
 
 namespace WebAddressbookTests
 {
     [TestFixture]
 
-    public class GroupModificationTests : AuthTestBase
+    public class GroupModificationTests : GroupTestBase
     {
-        public static IEnumerable<GroupData> RandomGroupDataProvider()
-        {
-            List<GroupData> groups = new List<GroupData>();
-            for (int i = 0; i < 5; i++)
-            {
-                groups.Add(new GroupData(GenerateRandomString(30))
-                {
-                    Header = GenerateRandomString(100),
-                    Footer = GenerateRandomString(100)
-                });
-            }
-            return groups;
-        }
-
-
-        [Test, TestCaseSource("RandomGroupDataProvider")]
+        [Test, TestCaseSource("GroupDataFromJsonFile")]
         public void GroupModificationTest(GroupData newData)
-        {
-            
+        {            
             int i = 0;
 
             app.Groups.CreateIfNotPresent(i + 1);
 
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
+            List<GroupData> oldGroups = GroupData.GetAll();
             GroupData oldData = oldGroups[i];
 
-            app.Groups.Modify(i+1, newData);
+            app.Groups.Modify(oldData, newData);
 
             Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount());
 
-            List<GroupData> newGroups = app.Groups.GetGroupList();
-            oldGroups[i].Name = newData.Name;
+            List<GroupData> newGroups = GroupData.GetAll();
+            oldData.Name = newData.Name;
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
@@ -85,5 +71,25 @@ namespace WebAddressbookTests
                  }
              }
          }
+
+        public static IEnumerable<GroupData> RandomGroupDataProvider()
+        {
+            List<GroupData> groups = new List<GroupData>();
+            for (int i = 0; i < 5; i++)
+            {
+                groups.Add(new GroupData(GenerateRandomString(30))
+                {
+                    Header = GenerateRandomString(100),
+                    Footer = GenerateRandomString(100)
+                });
+            }
+            return groups;
+        }
+
+        public static IEnumerable<GroupData> GroupDataFromJsonFile()
+        {
+            return JsonConvert.DeserializeObject<List<GroupData>>(
+                File.ReadAllText(@"groupsmod.json"));
+        }
     }
 }
