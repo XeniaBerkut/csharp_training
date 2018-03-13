@@ -38,7 +38,14 @@ namespace WebAddressbookTests
         [Test]
         public void TestDBConnectivity()
         {
-            DateTime start = DateTime.Now;
+            foreach (ContactData contact in GroupData.GetAll()[0].GetContacts())
+            {
+                System.Console.Out.WriteLine(contact);
+            }
+            
+            
+            
+            /*DateTime start = DateTime.Now;
             List<GroupData> fromUI = app.Groups.GetGroupList();
             DateTime end = DateTime.Now;
             System.Console.Out.WriteLine("timeUI=" + end.Subtract(start));
@@ -46,7 +53,7 @@ namespace WebAddressbookTests
             start = DateTime.Now;
             List<GroupData> fromDb = GroupData.GetAll();
             end = DateTime.Now;
-            System.Console.Out.WriteLine("timeDB=" + end.Subtract(start));
+            System.Console.Out.WriteLine("timeDB=" + end.Subtract(start));*/
         }
 
         public static IEnumerable<GroupData> RandomGroupDataProvider()

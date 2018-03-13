@@ -156,7 +156,10 @@ namespace WebAddressbookTests
         public string Amonth { get; set; }
 
         [Column(Name = "ayear")]
-        public string Ayear { get; set; }      
+        public string Ayear { get; set; }
+
+        [Column(Name = "deprecated")]
+        public string DeleteTime { get; set; }
 
 
         public string AllPhones
@@ -270,7 +273,7 @@ namespace WebAddressbookTests
         {
             using (AddressBookDB db = new AddressBookDB())
             {
-                return (from g in db.Contacts select g).ToList();
+                return (from c in db.Contacts.Where(x => x.DeleteTime == "00.00.0000 00:00:00") select c).ToList();
             }
         }
     }

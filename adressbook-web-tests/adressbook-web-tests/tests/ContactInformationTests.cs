@@ -45,7 +45,7 @@ namespace WebAddressbookTests
         }
 
         [Test, TestCaseSource("RandomContactDataProvider")]
-        public void TestContactInformation(ContactData contact)
+        public void ContactInformationTest(ContactData contact)
         {
             int i = 5;
 
@@ -62,7 +62,7 @@ namespace WebAddressbookTests
         }
 
         [Test, TestCaseSource("RandomContactDataProvider")]
-        public void TestContactInformationDetail(ContactData contact)
+        public void ContactInformationDetailTest(ContactData contact)
         {
             int i = 0;
             app.Contacts.CreateIfNotPresentWithParam(i + 1, contact);
@@ -74,7 +74,7 @@ namespace WebAddressbookTests
         }
 
         [Test]
-        public void TestContactInformationDetail2()
+        public void ContactInformationDetail2Test()
         {
             int i = 2;
             app.Contacts.CreateIfNotPresent(i + 1);

@@ -38,6 +38,38 @@ namespace WebAddressbookTests
             };
         }
 
+
+
+        public ContactHelper AddContactToGroup(ContactData contact, GroupData group)
+        {
+            manager.Navigator.GoToHomePage();
+            ClearGroupFilter();
+            SelectContact(contact.Id);
+            SelectGroupToAdd(group.Id);
+            SubmitAddingContactToGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+            return this;
+        }
+
+        public ContactHelper SubmitAddingContactToGroup()
+        {
+            driver.FindElement(By.Name("add")).Click();
+            return this;
+        }
+
+        public ContactHelper SelectGroupToAdd(string groupId)
+        {
+            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByValue(groupId);
+            return this;
+        }
+
+        public ContactHelper ClearGroupFilter()
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");
+            return this;
+        }
+
         public ContactData GetContactInformationFromDetailForm(int i)
         {
             manager.Navigator.GoToHomePage();
@@ -124,6 +156,17 @@ namespace WebAddressbookTests
             SubmitModify();
             return this;
         }
+
+        public ContactHelper Modify(ContactData oldData, ContactData contact)
+        {
+            manager.Navigator.GoToHomePage();
+            EditContact(oldData.Id);
+            FillContactForm(contact);
+            SubmitModify();
+            return this;
+        }
+
+
 
         public ContactHelper Create(ContactData contact)
         {
@@ -218,9 +261,10 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper SelectContact(string id)
+        public ContactHelper SelectContact(string contactId)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='" + id + "'])")).Click();
+            //driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='" + contactId + "'])")).Click();
+            driver.FindElement(By.Id(contactId)).Click();
             return this;
         }
 
@@ -278,6 +322,12 @@ namespace WebAddressbookTests
         public ContactHelper EditContact(int index)
         {           
             driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + index + "]")).Click();
+            return this;
+        }
+
+        public ContactHelper EditContact(string id)
+        {
+            driver.FindElement(By.XPath("(//a[@href='edit.php?id="+id+"'")).Click();
             return this;
         }
 
