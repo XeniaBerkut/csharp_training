@@ -42,7 +42,7 @@ namespace WebAddressbookTests
             }
         }
 
-        [Test, TestCaseSource("RandomGroupDataProvider")]
+        [Test, TestCaseSource("GroupDataFromJsonFile")]
         public void GroupModificationTest5(GroupData newData)
          {
 
