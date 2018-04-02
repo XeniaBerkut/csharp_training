@@ -41,7 +41,7 @@ namespace WebAddressbookTests
         public ContactHelper DeleteContactFromGroup(ContactData contact, GroupData group)
         {
             manager.Navigator.GoToHomePage();
-            SelectGroupOnPage(group.Name);
+            SelectGroupOnPage(group.Id);
             SelectContact(contact.Id);
             DeleteContactFromGroup();
             new WebDriverWait(driver, TimeSpan.FromSeconds(10))
@@ -55,9 +55,9 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper SelectGroupOnPage(string groupName)
+        public ContactHelper SelectGroupOnPage(string groupId)
         {
-            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText(groupName);
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByValue(groupId);
             return this;
         }
 
@@ -83,7 +83,8 @@ namespace WebAddressbookTests
 
         public ContactHelper SelectGroupToAdd(string groupId)
         {
-            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByValue(groupId);
+            if (GroupData.GetAll().Count != 1)
+            { new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByValue(groupId); }            
             return this;
         }
 
